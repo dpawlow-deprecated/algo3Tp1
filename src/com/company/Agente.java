@@ -1,32 +1,37 @@
 package com.company;
 
+import java.util.HashSet;
 import java.util.Set;
 
 
 public class Agente {
-    private final int id;
-    private Set<Agente> confiables;
-    private Set<Agente> noConfiables;
+    private final Integer id;
+    private Set<Integer> confiables;
+    private Set<Integer> noConfiables;
 
-    public Agente(int id){
+    public Agente(Integer id){
         this.id = id;
+        this.confiables = new HashSet<Integer>();
+        this. noConfiables = new HashSet<Integer>();
     }
 
-    public Boolean confíaEnAgentes(Set<Agente> agentes){
-        agentes.retainAll(this.confiables);
-        return !agentes.isEmpty();
+    public Boolean confiaEnAgentes(Set<Integer> agentes){
+        Set<Integer> agentesCopy = new HashSet<>(agentes);
+        agentesCopy.retainAll(this.confiables);
+        return !agentesCopy.isEmpty();
     }
 
-    public Boolean desconfíaEnAgentes(Set<Agente> agentes){
-        agentes.retainAll(this.noConfiables);
-        return !agentes.isEmpty();
+    public Boolean desconfiaEnAgentes(Set<Integer> agentes){
+        Set<Integer> agentesCopy = new HashSet<>(agentes);
+        agentesCopy.retainAll(this.noConfiables);
+        return !agentesCopy.isEmpty();
     }
 
-    public void agregarConfiable(Agente agente){
+    public void agregarConfiable(Integer agente){
         this.confiables.add(agente);
     }
 
-    public void agregarDesconfiable(Agente agente){
+    public void agregarDesconfiable(Integer agente){
         this.noConfiables.add(agente);
     }
 

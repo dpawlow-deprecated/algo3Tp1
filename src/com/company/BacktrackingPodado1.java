@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Backtracking {
+public class BacktrackingPodado1 {
     private Integer i;
     private ArrayList<Agente> agentes;
     private AnswerValidityChecker answerChecker;
 
-    public Backtracking(Integer i, ArrayList<Agente> agentes){
+    public BacktrackingPodado1(Integer i, ArrayList<Agente> agentes){
         this.i = i;
         this.agentes = agentes;
         this.answerChecker = new AnswerValidityChecker(agentes);
@@ -40,7 +40,17 @@ public class Backtracking {
 
         indice++;
 
-        return Math.max(recursion(confiablesConIndice, noConfiables, indice), recursion(confiables, noConfiablesConIndice, indice));
+        Integer leftRecursionPath = 0;
+        Integer rightRecursionPath = 0;
+
+        if (answerChecker.esValido(confiablesConIndice, noConfiables)){
+            leftRecursionPath = recursion(confiablesConIndice, noConfiables, indice);
+        }
+        if (answerChecker.esValido(confiables, noConfiablesConIndice)){
+            rightRecursionPath = recursion(confiables, noConfiablesConIndice, indice);
+        }
+
+        return Math.max(leftRecursionPath, rightRecursionPath);
     }
 
 }
