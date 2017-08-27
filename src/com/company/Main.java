@@ -1,7 +1,6 @@
 package com.company;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Main {
 
@@ -27,5 +26,8 @@ public class Main {
 
         BacktrackingPodado1 btp1 = new BacktrackingPodado1(i, agentes);
         System.out.println("Max nro confiables bactracking podado 1: " + btp1.calcularMaxConfiables());
+
+        BacktrackingPodado2 btp2 = new BacktrackingPodado2(i, agentes);
+        System.out.println("Max nro confiables bactracking podado 2: " + btp2.calcularMaxConfiables());
     }
 }

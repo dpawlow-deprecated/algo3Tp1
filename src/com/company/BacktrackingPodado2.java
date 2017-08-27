@@ -4,15 +4,21 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public class BacktrackingPodado1 {
+public class BacktrackingPodado2 {
     private Integer i;
+    private Integer maxConfiables;
     private ArrayList<Agente> agentes;
     private AnswerValidityChecker answerChecker;
 
-    public BacktrackingPodado1(Integer i, ArrayList<Agente> agentes) {
+    public BacktrackingPodado2(Integer i, ArrayList<Agente> agentes) {
         this.i = i;
+        this.maxConfiables = 0;
         this.agentes = agentes;
         this.answerChecker = new AnswerValidityChecker(agentes);
+    }
+
+    private void setMaxConfiables(Integer n) {
+        this.maxConfiables = Math.max(n, this.maxConfiables);
     }
 
     public Integer calcularMaxConfiables() {
@@ -25,18 +31,18 @@ public class BacktrackingPodado1 {
         if (this.i - indice <= 0) {
             return answerChecker.evaluarConjunto(confiables, noConfiables);
         }
-
+        if (this.i - noConfiables.size() <= this.maxConfiables) {
+            return 0;
+        }
         Set<Integer> confiablesConIndice = new HashSet<Integer>(confiables);
-        confiablesConIndice.add(indice);
-
         Set<Integer> noConfiablesConIndice = new HashSet<Integer>(noConfiables);
+        confiablesConIndice.add(indice);
         noConfiablesConIndice.add(indice);
 
         indice++;
 
         Integer leftRecursionPath = 0;
         Integer rightRecursionPath = 0;
-
         if (answerChecker.esValido(confiablesConIndice, noConfiables)) {
             leftRecursionPath = recursion(confiablesConIndice, noConfiables, indice);
         }
@@ -44,7 +50,9 @@ public class BacktrackingPodado1 {
             rightRecursionPath = recursion(confiables, noConfiablesConIndice, indice);
         }
 
-        return Math.max(leftRecursionPath, rightRecursionPath);
+        Integer maxSetSize = Math.max(leftRecursionPath, rightRecursionPath);
+        this.setMaxConfiables(maxSetSize);
+        return maxSetSize;
     }
 
 }

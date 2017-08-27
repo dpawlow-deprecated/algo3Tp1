@@ -9,37 +9,38 @@ public class Agente {
     private Set<Integer> confiables;
     private Set<Integer> noConfiables;
 
-    public Agente(Integer id){
+    public Agente(Integer id) {
         this.id = id;
         this.confiables = new HashSet<Integer>();
-        this. noConfiables = new HashSet<Integer>();
+        this.noConfiables = new HashSet<Integer>();
     }
 
-    public Boolean confiaEnAgentes(Set<Integer> agentes){
+    public Boolean confiaEnAgentes(Set<Integer> agentes) {
         Set<Integer> agentesCopy = new HashSet<>(agentes);
         agentesCopy.retainAll(this.confiables);
         return !agentesCopy.isEmpty();
     }
 
-    public Boolean desconfiaEnAgentes(Set<Integer> agentes){
+    public Boolean desconfiaEnAgentes(Set<Integer> agentes) {
         Set<Integer> agentesCopy = new HashSet<>(agentes);
         agentesCopy.retainAll(this.noConfiables);
         return !agentesCopy.isEmpty();
     }
 
-    public void agregarConfiable(Integer agente){
+    public void agregarConfiable(Integer agente) {
         this.confiables.add(agente);
     }
 
-    public void agregarDesconfiable(Integer agente){
+    public void agregarDesconfiable(Integer agente) {
         this.noConfiables.add(agente);
     }
 
-    public int getId(){
+    public int getId() {
         return this.id;
     }
 
-    @Override public boolean equals(Object other) {
+    @Override
+    public boolean equals(Object other) {
         boolean result = false;
         if (other instanceof Agente) {
             Agente that = (Agente) other;
@@ -48,7 +49,8 @@ public class Agente {
         return result;
     }
 
-    @Override public int hashCode() {
+    @Override
+    public int hashCode() {
         return getId();
     }
 }
