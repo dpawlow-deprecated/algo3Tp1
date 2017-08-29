@@ -37,10 +37,10 @@ public class BacktrackingPodado1 {
         Integer leftRecursionPath = 0;
         Integer rightRecursionPath = 0;
 
-        if (answerChecker.esValido(confiablesConIndice, noConfiables)) {
+        if (answerChecker.esValido(confiablesConIndice, noConfiables) && answerChecker.esConsistente(confiablesConIndice)) {
             leftRecursionPath = recursion(confiablesConIndice, noConfiables, indice);
         }
-        if (answerChecker.esValido(confiables, noConfiablesConIndice)) {
+        if (answerChecker.esValido(confiables, noConfiablesConIndice) && answerChecker.esConsistente(confiables)) {
             rightRecursionPath = recursion(confiables, noConfiablesConIndice, indice);
         }
 

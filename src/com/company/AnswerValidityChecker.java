@@ -3,9 +3,6 @@ package com.company;
 import java.util.ArrayList;
 import java.util.Set;
 
-/**
- * Created by dpawlow on 8/27/17.
- */
 public class AnswerValidityChecker {
 
     private ArrayList<Agente> agentes;
@@ -34,5 +31,18 @@ public class AnswerValidityChecker {
         return true;
     }
 
-
+    public Boolean esConsistente(Set<Integer> confiables) {
+        if (confiables.size() == 0) {
+            return true;
+        }
+        for (Integer agente1 : confiables) {
+            for (Integer agente2 : confiables) {
+                if (agente1 != agente2 && (this.agentes.get(agente1).confiaEnAgentes(this.agentes.get(agente2).getNoConfiables()) ||
+                        this.agentes.get(agente1).desconfiaEnAgentes(this.agentes.get(agente2).getConfiables()))) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }

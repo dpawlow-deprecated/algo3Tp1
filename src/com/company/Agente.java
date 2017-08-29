@@ -39,6 +39,14 @@ public class Agente {
         return this.id;
     }
 
+    public Set<Integer> getConfiables() {
+        return this.confiables;
+    }
+
+    public Set<Integer> getNoConfiables() {
+        return this.noConfiables;
+    }
+
     @Override
     public boolean equals(Object other) {
         boolean result = false;
