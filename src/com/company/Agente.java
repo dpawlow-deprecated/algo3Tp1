@@ -15,6 +15,12 @@ public class Agente {
         this.noConfiables = new HashSet<Integer>();
     }
 
+    public Agente(Integer id, Set<Integer> confiables, Set<Integer> noConfiables){
+        this.id = id;
+        this.confiables = confiables;
+        this.noConfiables = noConfiables;
+    }
+
     public Boolean confiaEnAgentes(Set<Integer> agentes) {
         Set<Integer> agentesCopy = new HashSet<>(agentes);
         agentesCopy.retainAll(this.confiables);
