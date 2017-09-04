@@ -28,15 +28,13 @@ public class Main {
             }
 
             for (int k = 0; k < a; k++) {
-                int idAgente = in.nextInt();
+                int idAgente = in.nextInt()-1;
                 int encuesta = in.nextInt();
 
-                System.out.println("id agente: " + idAgente + ", encuesta: " + encuesta);
-
                 if (encuesta < 0) {
-                    agentes.get(idAgente-1).agregarDesconfiable(-encuesta);
+                    agentes.get(idAgente).agregarDesconfiable(-encuesta-1);
                 } else {
-                    agentes.get(idAgente-1).agregarConfiable(encuesta);
+                    agentes.get(idAgente).agregarConfiable(encuesta-1);
                 }
             }
 
