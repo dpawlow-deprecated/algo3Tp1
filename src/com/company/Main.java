@@ -38,7 +38,7 @@ public class Main {
                 }
             }
 
-            Backtracking bt = new Backtracking(i, agentes);
+            Backtracking bt = new BacktrackingPuro(i, agentes);
             BacktrackingPodado1 btp1 = new BacktrackingPodado1(i, agentes);
             BacktrackingPodado2 btp2 = new BacktrackingPodado2(i, agentes);
 

@@ -29,7 +29,7 @@ public class BacktrackingPodado2 implements Backtracking {
 
     private Integer recursion(Set<Integer> confiables, Set<Integer> noConfiables, Integer indice) {
         if (this.i - indice <= 0) {
-            return answerChecker.evaluarConjunto(confiables, noConfiables);
+            return confiables.size();
         }
         if (this.i - noConfiables.size() <= this.maxConfiables) {
             return 0;

@@ -23,7 +23,7 @@ public class BacktrackingPodado1 implements Backtracking {
 
     private Integer recursion(Set<Integer> confiables, Set<Integer> noConfiables, Integer indice) {
         if (this.i - indice <= 0) {
-            return answerChecker.evaluarConjunto(confiables, noConfiables);
+            return confiables.size();
         }
 
         Set<Integer> confiablesConIndice = new HashSet<Integer>(confiables);
