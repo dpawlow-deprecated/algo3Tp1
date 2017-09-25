@@ -105,7 +105,7 @@ public class Tests {
 
     private void calcularCaso(ArrayList<Agente> agentes, int i, String frase){
         long promedio = 0;
-        ArrayList<Long> tiempos = null;
+        ArrayList<Long> tiempos = new ArrayList<Long>();
 
         BacktrackingPuro bt = new BacktrackingPuro(i, agentes);
         BacktrackingPodado1 btp1 = new BacktrackingPodado1(i, agentes);
@@ -131,9 +131,9 @@ public class Tests {
         long inicio = 0;
         long fin = 0;
         Integer maxConfiables = 0;
-        ArrayList<Long> tiempos = null;
+        ArrayList<Long> tiempos = new ArrayList<Long>();
 
-        for (int k = 1; k <= 100; k++) {
+        for (int k = 1; k <= 30; k++) {
             inicio = System.nanoTime();
             maxConfiables = bt.calcularMaxConfiables();
             fin = System.nanoTime();
@@ -147,7 +147,7 @@ public class Tests {
         long promedio = 0;
         int count = 0;
 
-        for (int k = 10; k <= 90; k++) {
+        for (int k = 5; k <= 25; k++) {
             promedio += tiempos.get(k);
             count++;
         }
