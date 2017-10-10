@@ -5,15 +5,17 @@ import java.util.*;
 public class Tests {
 
     public void main() {
+        System.out.println("Corrida de las " + System.currentTimeMillis());
+        agentesCrecientesEncuestasAleatorias();
+        agentesCrecientesEncuestasPositivas();
+        agentesCrecientesEncuestasRestringidas();
+    }
+
+    private void agentesCrecientesEncuestasAleatorias() {
         Random r = new Random();
 
-
-        System.out.println("Agentes crecientes, encuestas aleatorias");
         for (int repeticiones = 0; repeticiones <= 100; repeticiones++) {
             for (int i = 1; i <= 400; i++) {
-                long inicio;
-                long promedio;
-                long fin;
 
                 ArrayList<Agente> agentes = new ArrayList<>();
                 for (int k = 1; k <= i; k++) {
@@ -34,31 +36,14 @@ public class Tests {
                     agentes.add(agente);
                 }
 
-                Backtracking bt = new Backtracking(i, agentes);
-                BacktrackingPodado1 btp1 = new BacktrackingPodado1(i, agentes);
-                BacktrackingPodado2 btp2 = new BacktrackingPodado2(i, agentes);
-
-                inicio = System.nanoTime();
-                Integer btMax = bt.calcularMaxConfiables();
-                fin = System.nanoTime();
-
-                System.out.println("Bactracking encuestas aleatorias;" + i + ";" + btMax + ";" + (fin - inicio) + ";");
-
-                inicio = System.nanoTime();
-                Integer btMaxP1 = btp1.calcularMaxConfiables();
-                fin = System.nanoTime();
-
-                System.out.println("BactrackingPodado1 encuestas aleatorias;" + i + ";" + btMaxP1 + ";" + (fin - inicio) + ";");
-
-                inicio = System.nanoTime();
-                Integer btMaxP2 = btp2.calcularMaxConfiables();
-                fin = System.nanoTime();
-
-                System.out.println("BactrackingPodado2 encuestas aleatorias;" + i + ";" + btMaxP2 + ";" + (fin - inicio) + ";");
+                calcularCaso(agentes, i, "encuestas aleatorias");
             }
         }
+    }
 
-        System.out.println("Agentes crecientes, encuestas positivas");
+    private void agentesCrecientesEncuestasPositivas(){
+        Random r = new Random();
+
         for (int repeticiones = 0; repeticiones <= 100; repeticiones++) {
             for (int i = 1; i <= 100; i++) {
                 long inicio;
@@ -80,31 +65,14 @@ public class Tests {
                     agentes.add(agente);
                 }
 
-                Backtracking bt = new Backtracking(i, agentes);
-                BacktrackingPodado1 btp1 = new BacktrackingPodado1(i, agentes);
-                BacktrackingPodado2 btp2 = new BacktrackingPodado2(i, agentes);
-
-                inicio = System.nanoTime();
-                Integer btMax = bt.calcularMaxConfiables();
-                fin = System.nanoTime();
-
-                System.out.println("Bactracking encuestas positivas;" + i + ";" + btMax + ";" + (fin - inicio) + ";");
-
-                inicio = System.nanoTime();
-                Integer btMaxP1 = btp1.calcularMaxConfiables();
-                fin = System.nanoTime();
-
-                System.out.println("BactrackingPodado1 encuestas positivas;" + i + ";" + btMaxP1 + ";" + (fin - inicio) + ";");
-
-                inicio = System.nanoTime();
-                Integer btMaxP2 = btp2.calcularMaxConfiables();
-                fin = System.nanoTime();
-
-                System.out.println("BactrackingPodado2 encuestas positivas;" + i + ";" + btMaxP2 + ";" + (fin - inicio) + ";");
+                calcularCaso(agentes, i, "encuestas positivas");
             }
         }
+    }
 
-        System.out.println("Agentes crecientes, encuestas restringidas");
+    private void agentesCrecientesEncuestasRestringidas(){
+        Random r = new Random();
+
         for (int repeticiones = 0; repeticiones <= 40; repeticiones++) {
             for (int i = 1; i <= 40; i++) {
                 long inicio;
@@ -130,29 +98,60 @@ public class Tests {
                     agentes.add(agente);
                 }
 
-                Backtracking bt = new Backtracking(i, agentes);
-                BacktrackingPodado1 btp1 = new BacktrackingPodado1(i, agentes);
-                BacktrackingPodado2 btp2 = new BacktrackingPodado2(i, agentes);
-
-                inicio = System.nanoTime();
-                Integer btMax = bt.calcularMaxConfiables();
-                fin = System.nanoTime();
-
-                System.out.println("Bactracking encuestas restringidas;" + i + ";" + btMax + ";" + (fin - inicio) + ";");
-
-                inicio = System.nanoTime();
-                Integer btMaxP1 = btp1.calcularMaxConfiables();
-                fin = System.nanoTime();
-
-                System.out.println("BactrackingPodado1 encuestas restringidas;" + i + ";" + btMaxP1 + ";" + (fin - inicio) + ";");
-
-                inicio = System.nanoTime();
-                Integer btMaxP2 = btp2.calcularMaxConfiables();
-                fin = System.nanoTime();
-
-                System.out.println("BactrackingPodado2 encuestas restringidas;" + i + ";" + btMaxP2 + ";" + (fin - inicio) + ";");
+                calcularCaso(agentes, i, "encuestas restringidas");
             }
         }
-
     }
+
+    private void calcularCaso(ArrayList<Agente> agentes, int i, String frase){
+        long promedio = 0;
+        ArrayList<Long> tiempos = new ArrayList<Long>();
+
+        BacktrackingPuro bt = new BacktrackingPuro(i, agentes);
+        BacktrackingPodado1 btp1 = new BacktrackingPodado1(i, agentes);
+        BacktrackingPodado2 btp2 = new BacktrackingPodado2(i, agentes);
+
+        tiempos = repetirExperimentos(bt);
+        promedio = promedioAlfaPodado(tiempos);
+
+        System.out.println("Bactracking " + frase + ";" + i + ";" + promedio + ";");
+
+        tiempos = repetirExperimentos(btp1);
+        promedio = promedioAlfaPodado(tiempos);
+
+        System.out.println("BactrackingPodado1 " + frase + ";" + i + ";" + promedio + ";");
+
+        tiempos = repetirExperimentos(btp2);
+        promedio = promedioAlfaPodado(tiempos);
+
+        System.out.println("BactrackingPodado2 " + frase + ";" + i + ";" + promedio + ";");
+    }
+
+    private ArrayList<Long> repetirExperimentos(Backtracking bt){
+        long inicio = 0;
+        long fin = 0;
+        Integer maxConfiables = 0;
+        ArrayList<Long> tiempos = new ArrayList<Long>();
+
+        for (int k = 1; k <= 30; k++) {
+            inicio = System.nanoTime();
+            maxConfiables = bt.calcularMaxConfiables();
+            fin = System.nanoTime();
+            tiempos.add(fin - inicio);
+        }
+        return tiempos;
+    }
+
+    private Long promedioAlfaPodado(ArrayList<Long> tiempos){
+        Collections.sort(tiempos);
+        long promedio = 0;
+        int count = 0;
+
+        for (int k = 5; k <= 25; k++) {
+            promedio += tiempos.get(k);
+            count++;
+        }
+        return promedio/count;
+    }
+
 }

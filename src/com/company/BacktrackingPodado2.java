@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public class BacktrackingPodado2 {
+public class BacktrackingPodado2 implements Backtracking {
     private Integer i;
     private Integer maxConfiables;
     private ArrayList<Agente> agentes;
@@ -29,7 +29,7 @@ public class BacktrackingPodado2 {
 
     private Integer recursion(Set<Integer> confiables, Set<Integer> noConfiables, Integer indice) {
         if (this.i - indice <= 0) {
-            return answerChecker.evaluarConjunto(confiables, noConfiables);
+            return confiables.size();
         }
         if (this.i - noConfiables.size() <= this.maxConfiables) {
             return 0;
@@ -43,10 +43,10 @@ public class BacktrackingPodado2 {
 
         Integer leftRecursionPath = 0;
         Integer rightRecursionPath = 0;
-        if (answerChecker.esValido(confiablesConIndice, noConfiables) && answerChecker.esConsistente(confiablesConIndice)) {
+        if (answerChecker.esValido(confiablesConIndice, noConfiables)) {
             leftRecursionPath = recursion(confiablesConIndice, noConfiables, indice);
         }
-        if (answerChecker.esValido(confiables, noConfiablesConIndice) && answerChecker.esConsistente(confiables)) {
+        if (answerChecker.esValido(confiables, noConfiablesConIndice)) {
             rightRecursionPath = recursion(confiables, noConfiablesConIndice, indice);
         }
 
